@@ -7,12 +7,12 @@ import { SocketIOProvider } from "y-socket.io"
 
 function App() {
   const editorRef = useRef(null)
-  const ydoc = useMemo(() => new Y.doc(), [])
+  const ydoc = useMemo(() => new Y.Doc(), [])
   const yText = useMemo(() => ydoc.getText("monaco"), [ydoc])
   
   const handleMount = (editor) => {
     editorRef.current = editor
-    const provider = new SocketIOProvider("http://localhost:3000", "monaco", ydoc)
+    const provider = new SocketIOProvider("http://localhost:3000", "monaco", ydoc, {autoConnect:true})
     const monacoBinding = new MonacoBinding(
       yText,
       editorRef.current.getModel(),
@@ -30,6 +30,7 @@ function App() {
           defaultValue="// Hi lol"
           theme="vs-dark"
           height="100%"
+          onMount={handleMount}
         />
       </section>
     </main>
