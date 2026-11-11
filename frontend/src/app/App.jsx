@@ -25,6 +25,7 @@ function App() {
   const handleJoin = (e) => {
     e.preventDefault()
     setUsername(e.target.username.value)
+    window.history.pushState({}, "", "?username=" + e.target.username.value)
   }
 
   if (!username) {
